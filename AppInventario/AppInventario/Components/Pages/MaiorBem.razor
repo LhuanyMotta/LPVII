@@ -1,0 +1,68 @@
+﻿@page "/listarMaiorBem"
+@rendermode InteractiveServer
+@using AppInventario.Models
+@using AppInventario.Services
+@inject PessoaService pessoaService
+
+<h3>LISTAGEM DE PESSOAS COM SEU BEM DE MAIOR VALOR</h3>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Bem de Maior Valor</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (pessoasComMaiorBem != null)
+            {
+                @foreach (var item in pessoasComMaiorBem)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        <td>@item.Cpf</td>
+                        <td>@item.PropriedadeMaiorValor?.Descricao</td>
+                        <td>@item.PropriedadeMaiorValor?.Valor?.ToString("C")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">Carregando dados...</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private List<PessoaComMaiorBem>? pessoasComMaiorBem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var pessoas = await pessoaService.Pessoas();
+
+        pessoasComMaiorBem = pessoas?
+            .Where(p => p.Propriedades != null && p.Propriedades.Any())
+            .Select(p => new PessoaComMaiorBem
+                {
+                    Id = p.Id,
+                    Nome = p.Nome,
+                    Cpf = p.Cpf,
+                    PropriedadeMaiorValor = p.Propriedades.OrderByDescending(prop => prop.Valor).FirstOrDefault()
+                })
+            .ToList();
+    }
+
+    private class PessoaComMaiorBem
+    {
+        public int Id { get; set; }
+        public string? Nome { get; set; }
+        public string? Cpf { get; set; }
+        public Propriedade? PropriedadeMaiorValor { get; set; }
+    }
+}
