@@ -1,0 +1,82 @@
+﻿@page "/maioresmultas"
+@rendermode InteractiveServer
+@using AppMultas.Models
+@using AppMultas.Controllers
+@inject VeiculoController veiculoController
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>VEÍCULOS COM MAIORES MULTAS</h3>
+        </div>
+
+        <div class="card-body">
+            @if (veiculosComMaioresMultas?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-danger">
+                            <tr>
+                                <th><i class="fas fa-car me-2"></i>Placa</th>
+                                <th><i class="fas fa-car-side me-2"></i>Modelo</th>
+                                <th><i class="fas fa-industry me-2"></i>Marca</th>
+                                <th class="text-end"><i class="fas fa-trophy me-2"></i>Maior Multa</th>
+                                <th><i class="fas fa-comment me-2"></i>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in veiculosComMaioresMultas)
+                            {
+                                var maiorMulta = item.Multas?.OrderByDescending(m => m.ValorMulta).FirstOrDefault();
+                                <tr>
+                                    <td class="fw-bold">@item.Placa</td>
+                                    <td>@item.Modelo</td>
+                                    <td>@item.Marca</td>
+                                    <td class="text-end fw-bold text-danger">@($"{maiorMulta?.ValorMulta:C}")</td>
+                                    <td>
+                                        <span class="badge bg-danger rounded-pill">@maiorMulta?.Descricao</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <div class="alert alert-danger">
+                        <h5><i class="fas fa-chart-pie me-2"></i>Estatísticas</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="mb-1"><strong>Total de veículos:</strong> @veiculosComMaioresMultas.Count</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-1"><strong>Maior multa absoluta:</strong> @($"{veiculosComMaioresMultas.Max(v => v.Multas?.Max(m => m.ValorMulta)):C}")</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-1"><strong>Média das maiores multas:</strong> @($"{veiculosComMaioresMultas.Average(v => v.Multas?.Max(m => m.ValorMulta)):C}")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center py-4">
+                    <i class="fas fa-car-crash fa-3x mb-3"></i>
+                    <h4>Nenhum veículo com multas encontrado</h4>
+                    <p class="mb-0">Não há registros de multas no sistema</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Veiculo> veiculosComMaioresMultas = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var veiculos = await veiculoController.ListaDeVeiculos();
+        veiculosComMaioresMultas = veiculos.Where(v => v.Multas?.Any() == true).ToList();
+    }
+}

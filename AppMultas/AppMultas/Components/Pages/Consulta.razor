@@ -1,0 +1,127 @@
+﻿@page "/consulta"
+@rendermode InteractiveServer
+@using AppMultas.Models
+@using AppMultas.Controllers
+@inject VeiculoController veiculoController
+@inject NavigationManager navegacao
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0"><i class="fas fa-car me-2"></i>CONSULTA DE MULTAS</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="mb-4">
+                <label class="form-label fw-bold">CARROS CADASTRADOS:</label>
+                <select @onchange="SelecionarVeiculo" class="form-select form-select-lg">
+                    <option disabled selected value="">Selecione uma placa</option>
+                    @foreach (var item in listaVeiculos)
+                    {
+                        <option value="@item.Id">@item.Placa</option>
+                    }
+                </select>
+            </div>
+
+            @if (veiculo is not null)
+            {
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input @bind="veiculo.Modelo" type="text" class="form-control" readonly />
+                            <label>MODELO:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input @bind="veiculo.Marca" type="text" class="form-control" readonly />
+                            <label>MARCA:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input @bind="veiculo.Placa" type="text" class="form-control" readonly />
+                            <label>PLACA:</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h4 class="text-center mb-3"><i class="fas fa-file-invoice-dollar me-2"></i>MULTAS REGISTRADAS</h4>
+
+                    @if (listaMultas?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th><i class="fas fa-align-left me-2"></i>Descrição</th>
+                                        <th class="text-end"><i class="fas fa-dollar-sign me-2"></i>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var multa in listaMultas)
+                                    {
+                                        <tr>
+                                            <td>@multa.Descricao</td>
+                                            <td class="text-end fw-bold">@($"{multa.ValorMulta:C}")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot class="table-secondary">
+                                    <tr>
+                                        <th class="text-end">Total:</th>
+                                        <th class="text-end text-danger">@($"{listaMultas.Sum(m => m.ValorMulta):C}")</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="alert alert-success d-flex align-items-center mt-3">
+                            <i class="fas fa-info-circle fa-2x me-3"></i>
+                            <div>
+                                <h5 class="alert-heading">Resumo Financeiro</h5>
+                                <p class="mb-0">Este veículo acumulou @listaMultas.Count multa(s) totalizando @($"{listaMultas.Sum(m => m.ValorMulta):C}")</p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Nenhuma multa registrada para este veículo.
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="card-footer text-muted text-center">
+            <small>Última atualização: @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</small>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Multa> listaMultas = new();
+    private List<Veiculo> listaVeiculos = new();
+    private Veiculo? veiculo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaVeiculos = await veiculoController.ListaDeVeiculos();
+    }
+
+    private void SelecionarVeiculo(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int id))
+        {
+            veiculo = listaVeiculos.FirstOrDefault(v => v.Id == id);
+            listaMultas = veiculo?.Multas ?? new List<Multa>();
+        }
+        else
+        {
+            veiculo = null;
+            listaMultas.Clear();
+        }
+    }
+}

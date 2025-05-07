@@ -1,0 +1,84 @@
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.csproj.AssemblyReference.cache
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.AssemblyInfoInputs.cache
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.AssemblyInfo.cs
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.csproj.CoreCompileInputs.cache
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\appsettings.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.staticwebassets.runtime.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.exe
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.deps.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.runtimeconfig.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.pdb
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.AppMultas.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.build.AppMultas.props
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AppMultas.props
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AppMultas.props
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\bundle\AppMultas.styles.css
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\projectbundle\AppMultas.bundle.scp.css
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.csproj.Up2Date
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\refint\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.pdb
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.genruntimeconfig.cache
+C:\Users\lhuany.motta\Desktop\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\ref\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\appsettings.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.staticwebassets.runtime.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.exe
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.deps.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.runtimeconfig.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\AppMultas.pdb
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.csproj.AssemblyReference.cache
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.AssemblyInfoInputs.cache
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.AssemblyInfo.cs
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.csproj.CoreCompileInputs.cache
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.AppMultas.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.build.AppMultas.props
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AppMultas.props
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AppMultas.props
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\bundle\AppMultas.styles.css
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\scopedcss\projectbundle\AppMultas.bundle.scp.css
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.csproj.Up2Date
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\refint\AppMultas.dll
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.pdb
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\AppMultas.genruntimeconfig.cache
+C:\Users\lhuany.motta\Desktop\passar pra pasta ADS\fazendo LPVII\AppMultas\AppMultas\obj\Debug\net8.0\ref\AppMultas.dll

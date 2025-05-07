@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\lhuany.motta\\Desktop\\passar pra pasta ADS\\fazendo LPVII\\AppMultas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A7BFDB55-8293-4F8E-8AC8-5A88F8443E16}|AppMultas\\AppMultas.csproj|c:\\users\\lhuany.motta\\desktop\\passar pra pasta ads\\fazendo lpvii\\appmultas\\appmultas\\components\\pages\\maioresmultas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7BFDB55-8293-4F8E-8AC8-5A88F8443E16}|AppMultas\\AppMultas.csproj|solutionrelative:appmultas\\components\\pages\\maioresmultas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7BFDB55-8293-4F8E-8AC8-5A88F8443E16}|AppMultas\\AppMultas.csproj|c:\\users\\lhuany.motta\\desktop\\passar pra pasta ads\\fazendo lpvii\\appmultas\\appmultas\\components\\pages\\consulta.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7BFDB55-8293-4F8E-8AC8-5A88F8443E16}|AppMultas\\AppMultas.csproj|solutionrelative:appmultas\\components\\pages\\consulta.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MaioresMultas.razor",
+              "DocumentMoniker": "C:\\Users\\lhuany.motta\\Desktop\\passar pra pasta ADS\\fazendo LPVII\\AppMultas\\AppMultas\\Components\\Pages\\MaioresMultas.razor",
+              "RelativeDocumentMoniker": "AppMultas\\Components\\Pages\\MaioresMultas.razor",
+              "ToolTip": "C:\\Users\\lhuany.motta\\Desktop\\passar pra pasta ADS\\fazendo LPVII\\AppMultas\\AppMultas\\Components\\Pages\\MaioresMultas.razor",
+              "RelativeToolTip": "AppMultas\\Components\\Pages\\MaioresMultas.razor",
+              "ViewState": "AgIAACwAAAAAAAAAAAAowFEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-06T15:16:03.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Consulta.razor",
+              "DocumentMoniker": "C:\\Users\\lhuany.motta\\Desktop\\passar pra pasta ADS\\fazendo LPVII\\AppMultas\\AppMultas\\Components\\Pages\\Consulta.razor",
+              "RelativeDocumentMoniker": "AppMultas\\Components\\Pages\\Consulta.razor",
+              "ToolTip": "C:\\Users\\lhuany.motta\\Desktop\\passar pra pasta ADS\\fazendo LPVII\\AppMultas\\AppMultas\\Components\\Pages\\Consulta.razor",
+              "RelativeToolTip": "AppMultas\\Components\\Pages\\Consulta.razor",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAowH4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-06T14:57:38.904Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

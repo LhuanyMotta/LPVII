@@ -1,0 +1,167 @@
+﻿@page "/consultafiltrada"
+@rendermode InteractiveServer
+@using AppMultas.Models
+@using AppMultas.Controllers
+@inject VeiculoController veiculoController
+@inject NavigationManager navegacao
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0"><i class="fas fa-filter me-2"></i>CONSULTA FILTRADA DE MULTAS</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select @onchange="SelecionarVeiculo" class="form-select">
+                            <option value="">Todos os veículos</option>
+                            @foreach (var item in listaVeiculos)
+                            {
+                                <option value="@item.Id">@item.Placa</option>
+                            }
+                        </select>
+                        <label>Selecione um veículo:</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="number" @bind="valorFiltro" class="form-control" placeholder=" " />
+                        <label>Filtrar por valor mínimo:</label>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-floating">
+                        <input type="text" @bind="descricaoFiltro" class="form-control" placeholder=" " />
+                        <label>Filtrar por descrição:</label>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                    <div class="btn-group w-100">
+                        <button class="btn btn-primary" @onclick="AplicarFiltros">
+                            <i class="fas fa-search me-2"></i>Filtrar
+                        </button>
+                        <button class="btn btn-outline-secondary" @onclick="LimparFiltros">
+                            <i class="fas fa-eraser me-2"></i>Limpar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @if (multasFiltradas?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-info">
+                            <tr>
+                                <th><i class="fas fa-car me-2"></i>Placa</th>
+                                <th><i class="fas fa-car-side me-2"></i>Modelo</th>
+                                <th><i class="fas fa-align-left me-2"></i>Descrição</th>
+                                <th class="text-end"><i class="fas fa-dollar-sign me-2"></i>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var multa in multasFiltradas)
+                            {
+                                <tr class="@(multa.ValorMulta >= 1000 ? "table-danger" : "")">
+                                    <td>@multa.Veiculo?.Placa</td>
+                                    <td>@multa.Veiculo?.Modelo</td>
+                                    <td>@multa.Descricao</td>
+                                    <td class="text-end fw-bold">@($"{multa.ValorMulta:C}")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-receipt me-2"></i>Total Geral</h5>
+                                <p class="card-text display-6">@($"{multasFiltradas.Sum(m => m.ValorMulta):C}")</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-filter me-2"></i>Total Filtrado</h5>
+                                <p class="card-text display-6">@($"{multasFiltradas.Where(m => filtroAplicado).Sum(m => m.ValorMulta):C}")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center py-4">
+                    <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
+                    <h4>Nenhuma multa encontrada</h4>
+                    <p class="mb-0">Nenhum registro corresponde aos filtros aplicados</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Multa> todasMultas = new();
+    private List<Multa> multasFiltradas = new();
+    private List<Veiculo> listaVeiculos = new();
+    private decimal? valorFiltro;
+    private string descricaoFiltro = string.Empty;
+    private bool filtroAplicado = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaVeiculos = await veiculoController.ListaDeVeiculos();
+        todasMultas = await veiculoController.ListaDeMultasComVeiculos();
+        multasFiltradas = todasMultas;
+    }
+
+    private void SelecionarVeiculo(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int id))
+        {
+            multasFiltradas = todasMultas.Where(m => m.Veiculo?.Id == id).ToList();
+        }
+        else
+        {
+            multasFiltradas = todasMultas;
+        }
+        StateHasChanged();
+    }
+
+    private void AplicarFiltros()
+    {
+        var query = todasMultas.AsQueryable();
+
+        if (valorFiltro.HasValue && valorFiltro > 0)
+        {
+            query = query.Where(m => m.ValorMulta >= valorFiltro);
+            filtroAplicado = true;
+        }
+
+        if (!string.IsNullOrEmpty(descricaoFiltro))
+        {
+            query = query.Where(m => m.Descricao.Contains(descricaoFiltro, StringComparison.OrdinalIgnoreCase));
+            filtroAplicado = true;
+        }
+
+        multasFiltradas = query.ToList();
+    }
+
+    private void LimparFiltros()
+    {
+        valorFiltro = null;
+        descricaoFiltro = string.Empty;
+        filtroAplicado = false;
+        multasFiltradas = todasMultas;
+    }
+}
