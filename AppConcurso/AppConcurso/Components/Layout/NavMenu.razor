@@ -1,0 +1,104 @@
+﻿<div class="top-row navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <i class="fas fa-gavel me-2"></i> AppConcurso
+        </a>
+        <button class="navbar-toggler" onclick="toggleMenu()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+    <nav class="flex-column">
+        <div class="nav-item">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <i class="fas fa-home me-2"></i> Home
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="cadastroCandidato">
+                <i class="fas fa-user-plus me-2"></i> Cadastrar Candidato
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="cadastroCargo">
+                <i class="fas fa-briefcase me-2"></i> Cadastrar Cargo
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="inscricao">
+                <i class="fas fa-clipboard-check me-2"></i> Inscrição
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="lancarNotas">
+                <i class="fas fa-pen-fancy me-2"></i> Lançar Notas
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="resultadoPreliminar">
+                <i class="fas fa-chart-line me-2"></i> Preliminar
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="resultadoFinal">
+                <i class="fas fa-medal me-2"></i> Resultados
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+<style>
+    .sidebar {
+        background: linear-gradient(180deg, #1a5fb4 0%, #0d47a1 100%);
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        color: white;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .navbar {
+        background-color: #0d47a1 !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-item {
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-link {
+        color: rgba(255,255,255,0.9);
+        padding: 12px 20px;
+        transition: all 0.2s;
+    }
+
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            border-left: 4px solid white;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+</style>
+
+<script>
+    function toggleMenu() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+    }
+</script>

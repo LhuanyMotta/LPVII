@@ -1,0 +1,201 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary">
+            <i class="fas fa-home me-2"></i>Bem-vindo ao AppConcurso
+        </h1>
+        <p class="lead text-muted">Sistema completo para gerenciamento de concursos públicos.</p>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle fa-3x text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-4">
+                            <h4 class="card-title">Sobre o Sistema</h4>
+                            <p class="card-text">
+                                O AppConcurso é uma solução completa para gestão de concursos públicos, desde o cadastro de candidatos até a divulgação dos resultados finais.
+                                Acompanhe todo o processo seletivo de forma simples e eficiente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-plus fa-3x mb-3 text-primary"></i>
+                    <h4 class="card-title">Cadastro de Candidatos</h4>
+                    <p class="card-text">Gerencie os dados dos candidatos participantes do concurso.</p>
+                    <NavLink href="cadastroCandidato" class="btn btn-outline-primary stretched-link">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-briefcase fa-3x mb-3 text-primary"></i>
+                    <h4 class="card-title">Cadastro de Cargos</h4>
+                    <p class="card-text">Defina os cargos disponíveis no concurso e seus editais.</p>
+                    <NavLink href="cadastroCargo" class="btn btn-outline-primary stretched-link">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-clipboard-check fa-3x mb-3 text-primary"></i>
+                    <h4 class="card-title">Inscrições</h4>
+                    <p class="card-text">Realize as inscrições dos candidatos nos cargos desejados.</p>
+                    <NavLink href="inscricao" class="btn btn-outline-primary stretched-link">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-pen-fancy fa-3x mb-3 text-primary"></i>
+                    <h4 class="card-title">Lançamento de Notas</h4>
+                    <p class="card-text">Registre as notas dos candidatos nas diversas etapas.</p>
+                    <NavLink href="lancarNotas" class="btn btn-outline-primary stretched-link">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
+                    <h4 class="card-title">Resultados Preliminares</h4>
+                    <p class="card-text">Consulte a classificação inicial dos candidatos.</p>
+                    <NavLink href="resultadoPreliminar" class="btn btn-outline-primary stretched-link">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-medal fa-3x mb-3 text-primary"></i>
+                    <h4 class="card-title">Resultados Finais</h4>
+                    <p class="card-text">Visualize a classificação final após análise de recursos.</p>
+                    <NavLink href="resultadoFinal" class="btn btn-outline-primary stretched-link">
+                        Acessar <i class="fas fa-arrow-right ms-1"></i>
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-primary"><i class="fas fa-chart-pie me-2"></i>Estatísticas</h4>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="p-3 bg-light rounded">
+                                <h5 class="text-primary">@totalCandidatos</h5>
+                                <small class="text-muted">Candidatos</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 bg-light rounded">
+                                <h5 class="text-primary">@totalCargos</h5>
+                                <small class="text-muted">Cargos</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 bg-light rounded">
+                                <h5 class="text-primary">@totalInscricoes</h5>
+                                <small class="text-muted">Inscrições</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-primary"><i class="fas fa-bell me-2"></i>Últimas Atividades</h4>
+                    <ul class="list-group list-group-flush">
+                        @if (ultimasAtividades.Any())
+                        {
+                            @foreach (var atividade in ultimasAtividades)
+                            {
+                                <li class="list-group-item border-0">
+                                    <div class="d-flex">
+                                        <i class="fas @atividade.Icone text-primary me-3 mt-1"></i>
+                                        <div>
+                                            <h6 class="mb-1">@atividade.Titulo</h6>
+                                            <small class="text-muted">@atividade.Data.ToString("dd/MM/yyyy HH:mm")</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item border-0 text-muted">Nenhuma atividade recente</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private int totalCandidatos = 0;
+    private int totalCargos = 0;
+    private int totalInscricoes = 0;
+
+    private List<Atividade> ultimasAtividades = new List<Atividade>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulação pq não tem tantos registros ainda
+        totalCandidatos = 125;
+        totalCargos = 8;
+        totalInscricoes = 342;
+
+        ultimasAtividades = new List<Atividade>
+        {
+            new Atividade { Icone = "fa-user-plus", Titulo = "Novo candidato cadastrado", Data = DateTime.Now.AddHours(-1) },
+            new Atividade { Icone = "fa-pen-fancy", Titulo = "Notas lançadas para o cargo de Analista de Sistemas", Data = DateTime.Now.AddHours(-3) },
+            new Atividade { Icone = "fa-clipboard-check", Titulo = "5 novas inscrições realizadas", Data = DateTime.Now.AddDays(-1) },
+            new Atividade { Icone = "fa-briefcase", Titulo = "Novo cargo cadastrado", Data = DateTime.Now.AddDays(-2) }
+        };
+    }
+
+    private class Atividade
+    {
+        public string Icone { get; set; }
+        public string Titulo { get; set; }
+        public DateTime Data { get; set; }
+    }
+}

@@ -1,0 +1,189 @@
+﻿@page "/inscricao"
+@rendermode InteractiveServer
+@using AppConcurso.Models;
+@using AppConcurso.Controllers;
+@inject InscricaoController inscControl;
+@inject CargoController cargoControl;
+@inject CandidatoController candControl;
+@inject NavigationManager navegacao;
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 text-primary">
+            <i class="fas fa-file-signature me-2"></i>Inscrição de Candidato
+        </h1>
+        <button class="btn btn-outline-primary" @onclick="NovaInscricao" title="Nova inscrição">
+            <i class="fas fa-plus"></i> Nova
+        </button>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Dados da Inscrição</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input class="form-control" value="@numeroInsc" disabled />
+                        <label>Número de Inscrição</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input class="form-control" value="@dataInsc.ToShortDateString()" disabled />
+                        <label>Data de Inscrição</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select class="form-select" @onchange="SelecionarCandidatos">
+                            <option value="">Selecione um candidato</option>
+                            @foreach (var cand in listaCandidatos.OrderBy(c => c.Nome))
+                            {
+                                <option value="@cand.Id">@cand.Nome - @FormatarCPF(cand.Cpf)</option>
+                            }
+                        </select>
+                        <label>Candidato</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select class="form-select" @onchange="SelecionarCargos">
+                            <option value="">Selecione um cargo</option>
+                            @foreach (var carg in listaCargos.OrderBy(c => c.NomeCargo))
+                            {
+                                <option value="@carg.Id">@carg.NomeCargo - @carg.Edital</option>
+                            }
+                        </select>
+                        <label>Cargo</label>
+                    </div>
+                </div>
+            </div>
+
+            @if (candidatoId.HasValue)
+            {
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">
+                            <i class="fas fa-user me-2"></i>Dados do Candidato
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong><i class="fas fa-user-tag me-2"></i>Nome:</strong> @candidatoSelecionado?.Nome</p>
+                                <p><strong><i class="fas fa-id-card me-2"></i>CPF:</strong> @FormatarCPF(candidatoSelecionado?.Cpf)</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong><i class="fas fa-birthday-cake me-2"></i>Data Nasc.:</strong> @candidatoSelecionado?.DataNasc?.ToString("dd/MM/yyyy")</p>
+                                <p><strong><i class="fas fa-calendar-alt me-2"></i>Idade:</strong> @CalcularIdade(candidatoSelecionado?.DataNasc) anos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="mt-4 d-flex gap-2">
+                <button class="btn btn-primary" @onclick="Salvar" disabled="@(!enabledButton)">
+                    <i class="fas fa-save me-2"></i>Salvar
+                </button>
+                <button class="btn btn-outline-secondary" @onclick="Cancelar">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </button>
+                @if (!enabledButton)
+                {
+                    <div class="alert alert-success d-flex align-items-center mb-0 w-100" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <div>
+                            Inscrição realizada com sucesso!
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Cargo> listaCargos = new();
+    private List<Candidato> listaCandidatos = new();
+    private List<Inscricao> listaInsc = new();
+    private Candidato? candidatoSelecionado;
+    private int? candidatoId;
+    private int? cargoId;
+    private bool enabledButton = true;
+    private int numeroInsc = 0;
+    private DateTime dataInsc = DateTime.Today;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaCargos = await cargoControl.ListaCargos();
+        listaCandidatos = await candControl.ListaCandidatos();
+        listaInsc = await inscControl.ListaInscricoes();
+        numeroInsc = 10000 + listaInsc.Count + 1;
+    }
+
+    private async Task Salvar()
+    {
+        if (candidatoId.HasValue && cargoId.HasValue)
+        {
+            var inscricao = new Inscricao
+                {
+                    NumInscricao = numeroInsc,
+                    DataInsc = dataInsc,
+                    IdCandidato = candidatoId.Value,
+                    IdCargo = cargoId.Value
+                };
+
+            await inscControl.Add(inscricao);
+            await inscControl.Salvar();
+
+            enabledButton = false;
+            StateHasChanged();
+        }
+    }
+
+    private void Cancelar() => navegacao.NavigateTo("/inscricao");
+
+    private void NovaInscricao()
+    {
+        navegacao.NavigateTo("/inscricao", forceLoad: true);
+    }
+
+    private void SelecionarCandidatos(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int id))
+        {
+            candidatoId = id;
+            candidatoSelecionado = listaCandidatos.FirstOrDefault(c => c.Id == id);
+            StateHasChanged();
+        }
+    }
+
+    private void SelecionarCargos(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int id))
+        {
+            cargoId = id;
+        }
+    }
+
+    private string FormatarCPF(string cpf)
+    {
+        if (string.IsNullOrEmpty(cpf)) return "";
+        if (cpf.Length == 11) return $"{cpf.Substring(0, 3)}.{cpf.Substring(3, 3)}.{cpf.Substring(6, 3)}-{cpf.Substring(9, 2)}";
+        return cpf;
+    }
+
+    private int CalcularIdade(DateTime? dataNasc)
+    {
+        if (!dataNasc.HasValue) return 0;
+
+        var hoje = DateTime.Today;
+        var idade = hoje.Year - dataNasc.Value.Year;
+        if (dataNasc.Value.Date > hoje.AddYears(-idade)) idade--;
+        return idade;
+    }
+}

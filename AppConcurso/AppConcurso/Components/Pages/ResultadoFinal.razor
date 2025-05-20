@@ -1,0 +1,173 @@
+﻿@page "/resultadoFinal"
+@rendermode InteractiveServer
+@using AppConcurso.Models
+@using AppConcurso.Controllers
+@inject InscricaoController inscricaoController
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 text-primary">
+            <i class="fas fa-medal me-2"></i>Resultado Final
+        </h1>
+        <button class="btn btn-outline-primary" @onclick="AtualizarResultados" title="Atualizar resultados">
+            <i class="fas fa-sync-alt"></i> Atualizar
+        </button>
+    </div>
+
+    <div class="alert alert-info">
+        <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Critérios de Desempate</h5>
+        <ol class="mb-0">
+            <li>Maior nota em Conhecimentos Específicos</li>
+            <li>Maior nota em Conhecimentos Gerais</li>
+            <li>Candidato mais idoso</li>
+        </ol>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-list-ol me-2"></i>Classificação Final</h5>
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" class="form-control" @bind="filtro" placeholder="Filtrar por nome ou cargo" />
+                    <button class="btn btn-light" @onclick="Filtrar">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (resultados == null)
+            {
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                    <p class="mt-2">Carregando resultados...</p>
+                </div>
+            }
+            else if (!resultados.Any())
+            {
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Nenhum resultado disponível
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Posição</th>
+                                <th>Candidato</th>
+                                <th>Cargo</th>
+                                <th>Nota Geral</th>
+                                <th>Nota Específica</th>
+                                <th>Total</th>
+                                <th>Idade</th>
+                                <th>Situação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var ordenados = resultados
+                                .Where(r => r.Candidato != null && (string.IsNullOrEmpty(filtro) ||
+                                r.Candidato.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase) ||
+                                r.Cargo?.NomeCargo.Contains(filtro, StringComparison.OrdinalIgnoreCase) == true))
+                                .OrderByDescending(r => r.NotaConhEspec)
+                                .ThenByDescending(r => r.NotaConhGerais)
+                                .ThenBy(r => r.Candidato.DataNasc)
+                                .ToList();
+
+                                var vagasPorCargo = ordenados
+                                .GroupBy(r => r.Cargo?.NomeCargo)
+                                .ToDictionary(g => g.Key, g => Math.Max(1, g.Count() / 3)); // Exemplo: 1 vaga para cada 3 candidatos
+                            }
+                            @for (int i = 0; i < ordenados.Count; i++)
+                            {
+                                var item = ordenados[i];
+                                var idade = CalcularIdade(item.Candidato?.DataNasc);
+                                var cargo = item.Cargo?.NomeCargo;
+                                var posicaoNoCargo = ordenados
+                                .Where(r => r.Cargo?.NomeCargo == cargo)
+                                .ToList()
+                                .IndexOf(item) + 1;
+                                var vagas = vagasPorCargo.ContainsKey(cargo) ? vagasPorCargo[cargo] : 1;
+                                var aprovado = posicaoNoCargo <= vagas;
+
+                                <tr class="@(aprovado ? "table-success" : "")">
+                                    <td>@(i + 1)</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                @if (i < 3)
+                                                {
+                                                    <i class="fas fa-trophy @(i == 0 ? "text-warning" : i == 1 ? "text-secondary" : "text-danger")"></i>
+                                                }
+                                                else if (aprovado)
+                                                {
+                                                    <i class="fas fa-check text-success"></i>
+                                                }
+                                            </div>
+                                            @item.Candidato?.Nome
+                                        </div>
+                                    </td>
+                                    <td>@cargo</td>
+                                    <td>@item.NotaConhGerais?.ToString("N1")</td>
+                                    <td>@item.NotaConhEspec?.ToString("N1")</td>
+                                    <td><strong>@item.Total?.ToString("N1")</strong></td>
+                                    <td>@idade anos</td>
+                                    <td>
+                                        @if (aprovado)
+                                        {
+                                            <span class="badge bg-success">Aprovado</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Não classificado</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Inscricao> resultados = new();
+    private string filtro = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarResultados();
+    }
+
+    private async Task CarregarResultados()
+    {
+        resultados = await inscricaoController.ObterInscricoesComNotas();
+        StateHasChanged();
+    }
+
+    private async Task AtualizarResultados()
+    {
+        await CarregarResultados();
+    }
+
+    private void Filtrar()
+    {
+        StateHasChanged();
+    }
+
+    private int CalcularIdade(DateTime? dataNasc)
+    {
+        if (!dataNasc.HasValue) return 0;
+
+        var hoje = DateTime.Today;
+        var idade = hoje.Year - dataNasc.Value.Year;
+        if (dataNasc.Value.Date > hoje.AddYears(-idade)) idade--;
+        return idade;
+    }
+}

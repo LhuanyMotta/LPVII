@@ -1,0 +1,182 @@
+﻿@page "/cadastroCandidato"
+@rendermode InteractiveServer
+@using AppConcurso.Models
+@using AppConcurso.Controllers
+@inject CandidatoController candidController
+@inject NavigationManager navegacao
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 text-primary">
+            <i class="fas fa-user-plus me-2"></i>Cadastro de Candidato
+        </h1>
+        <button class="btn btn-outline-primary" @onclick="NovoCadastro" title="Novo cadastro">
+            <i class="fas fa-plus"></i> Novo
+        </button>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>Dados do Candidato</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input @bind="candidato.Nome" class="form-control" id="nomeInput" placeholder="Nome completo" disabled="@campoBloqueado" />
+                        <label for="nomeInput">Nome completo</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input @bind="candidato.Cpf" class="form-control" id="cpfInput" placeholder="CPF" disabled="@campoBloqueado"
+                               @oninput="FormatarCPF" />
+                        <label for="cpfInput">CPF</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input @bind="candidato.DataNasc" type="date" class="form-control" id="dataNascInput"
+                               placeholder="Data de Nascimento" disabled="@campoBloqueado" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <label for="dataNascInput">Data de Nascimento</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                @if (!novo)
+                {
+                    <button class="btn btn-primary" @onclick="Salvar" disabled="@(string.IsNullOrWhiteSpace(candidato.Nome))">
+                        <i class="fas fa-save me-2"></i>Salvar
+                    </button>
+                    <button class="btn btn-outline-secondary" @onclick="NovoCadastro">
+                        <i class="fas fa-times me-2"></i>Cancelar
+                    </button>
+                }
+                else
+                {
+                    <div class="alert alert-success d-flex align-items-center w-100 mb-0" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <div>
+                            Candidato cadastrado com sucesso!
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Candidatos Cadastrados</h5>
+        </div>
+        <div class="card-body">
+            @if (candidatosCadastrados == null || candidatosCadastrados.Count == 0)
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>Nenhum candidato cadastrado.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th><i class="fas fa-user me-2"></i>Nome</th>
+                                <th><i class="fas fa-id-card me-2"></i>CPF</th>
+                                <th><i class="fas fa-birthday-cake me-2"></i>Data Nascimento</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in candidatosCadastrados.OrderBy(c => c.Nome))
+                            {
+                                <tr>
+                                    <td>@item.Nome</td>
+                                    <td>@FormatarCPFExibicao(item.Cpf)</td>
+                                    <td>@item.DataNasc?.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="() => EditarCandidato(item.Id)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private Candidato candidato = new Candidato();
+    private List<Candidato> candidatosCadastrados = new List<Candidato>();
+    private bool novo = false;
+    private bool campoBloqueado = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarCandidatos();
+    }
+
+    private async Task CarregarCandidatos()
+    {
+        candidatosCadastrados = await candidController.ListaCandidatos();
+        StateHasChanged();
+    }
+
+    private async Task Salvar()
+    {
+        if (!string.IsNullOrWhiteSpace(candidato.Nome))
+        {
+            await candidController.Add(candidato);
+            await candidController.Salvar();
+            novo = true;
+            campoBloqueado = true;
+
+            await CarregarCandidatos();
+        }
+    }
+
+    private void NovoCadastro()
+    {
+        novo = false;
+        campoBloqueado = false;
+        candidato = new Candidato();
+    }
+
+    private void FormatarCPF(ChangeEventArgs e)
+    {
+        var cpf = e.Value?.ToString();
+        if (cpf != null && cpf.Length <= 14)
+        {
+            cpf = new string(cpf.Where(char.IsDigit).ToArray());
+            if (cpf.Length > 3) cpf = cpf.Insert(3, ".");
+            if (cpf.Length > 7) cpf = cpf.Insert(7, ".");
+            if (cpf.Length > 11) cpf = cpf.Insert(11, "-");
+            candidato.Cpf = cpf;
+        }
+    }
+
+    private string FormatarCPFExibicao(string cpf)
+    {
+        if (string.IsNullOrEmpty(cpf)) return "";
+        if (cpf.Length == 11) return $"{cpf.Substring(0, 3)}.{cpf.Substring(3, 3)}.{cpf.Substring(6, 3)}-{cpf.Substring(9, 2)}";
+        return cpf;
+    }
+
+    private async Task EditarCandidato(int id)
+    {
+        var candidatoExistente = candidatosCadastrados.FirstOrDefault(c => c.Id == id);
+        if (candidatoExistente != null)
+        {
+            candidato = candidatoExistente;
+            novo = false;
+            campoBloqueado = false;
+            StateHasChanged();
+        }
+    }
+}

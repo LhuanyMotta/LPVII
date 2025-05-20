@@ -1,0 +1,214 @@
+﻿@page "/cadastroCargo"
+@rendermode InteractiveServer
+@using AppConcurso.Models
+@using AppConcurso.Controllers
+@inject CargoController cargoController
+@inject NavigationManager navegacao
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 text-primary">
+            <i class="fas fa-briefcase me-2"></i>Cadastro de Cargo
+        </h1>
+        <button class="btn btn-outline-primary" @onclick="NovoCadastro" title="Novo cadastro">
+            <i class="fas fa-plus"></i> Novo
+        </button>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Dados do Cargo</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input @bind="cargo.NomeCargo" class="form-control" id="nomeCargoInput"
+                               placeholder="Nome do Cargo" disabled="@campoBloqueado" />
+                        <label for="nomeCargoInput">Nome do Cargo</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input @bind="cargo.Edital" class="form-control" id="editalInput"
+                               placeholder="Número do Edital" disabled="@campoBloqueado" />
+                        <label for="editalInput">Número do Edital</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input @bind="cargo.Salario" type="number" step="0.01" class="form-control"
+                               id="salarioInput" placeholder="Salário Base" disabled="@campoBloqueado"
+                               @oninput="FormatarSalario" />
+                        <label for="salarioInput">Salário Base</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input class="form-control" value="@vagasDisponiveis" disabled />
+                        <label>Vagas Disponíveis</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                @if (!novo)
+                {
+                    <button class="btn btn-primary" @onclick="Salvar" disabled="@(string.IsNullOrWhiteSpace(cargo.NomeCargo))">
+                        <i class="fas fa-save me-2"></i>Salvar
+                    </button>
+                    <button class="btn btn-outline-secondary" @onclick="NovoCadastro">
+                        <i class="fas fa-times me-2"></i>Cancelar
+                    </button>
+                }
+                else
+                {
+                    <div class="alert alert-success d-flex align-items-center w-100 mb-0" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <div>
+                            Cargo cadastrado com sucesso!
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-list me-2"></i>Cargos Cadastrados</h5>
+        </div>
+        <div class="card-body">
+            @if (cargosCadastrados == null || cargosCadastrados.Count == 0)
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>Nenhum cargo cadastrado.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Cargo</th>
+                                <th>Edital</th>
+                                <th>Salário</th>
+                                <th>Inscrições</th>
+                                <th>Vagas</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in cargosCadastrados.OrderBy(c => c.NomeCargo))
+                            {
+                                <tr>
+                                    <td>@item.NomeCargo</td>
+                                    <td>@item.Edital</td>
+                                    <td>@(item.Salario?.ToString("C"))</td>
+                                    <td>@(item.Inscricoes?.Count ?? 0)</td>
+                                    <td>@CalcularVagas(item)</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary me-2" @onclick="() => EditarCargo(item.Id)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" @onclick="() => ExcluirCargo(item.Id)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private Cargo cargo = new Cargo();
+    private List<Cargo> cargosCadastrados = new List<Cargo>();
+    private bool novo = false;
+    private bool campoBloqueado = false;
+    private int vagasDisponiveis = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarCargos();
+    }
+
+    private async Task CarregarCargos()
+    {
+        cargosCadastrados = await cargoController.ListaCargos();
+        StateHasChanged();
+    }
+
+    private async Task Salvar()
+    {
+        if (!string.IsNullOrWhiteSpace(cargo.NomeCargo))
+        {
+            if (cargo.Id == 0)
+            {
+                await cargoController.Add(cargo);
+            }
+
+            await cargoController.Salvar();
+            novo = true;
+            campoBloqueado = true;
+
+            await CarregarCargos();
+        }
+    }
+
+    private void NovoCadastro()
+    {
+        novo = false;
+        campoBloqueado = false;
+        cargo = new Cargo();
+        vagasDisponiveis = 0;
+    }
+
+    private void FormatarSalario(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out decimal salario))
+        {
+            cargo.Salario = salario;
+        }
+    }
+
+    private async Task EditarCargo(int id)
+    {
+        var cargoExistente = cargosCadastrados.FirstOrDefault(c => c.Id == id);
+        if (cargoExistente != null)
+        {
+            cargo = cargoExistente;
+            novo = false;
+            campoBloqueado = false;
+            vagasDisponiveis = CalcularVagas(cargo);
+            StateHasChanged();
+        }
+    }
+
+    private async Task ExcluirCargo(int id)
+    {
+        var cargoExistente = cargosCadastrados.FirstOrDefault(c => c.Id == id);
+        if (cargoExistente != null)
+        {
+            // Implementar lógica de exclusão
+            // await cargoController.Remover(cargoExistente);
+            // await CarregarCargos();
+
+            // Por enquanto apenas mostra mensagem
+            novo = true;
+            campoBloqueado = true;
+            StateHasChanged();
+        }
+    }
+
+    private int CalcularVagas(Cargo cargo)
+    {
+        // Lógica para calcular vagas baseada no número de inscrições
+        return Math.Max(1, (cargo.Inscricoes?.Count ?? 0) / 3);
+    }
+}

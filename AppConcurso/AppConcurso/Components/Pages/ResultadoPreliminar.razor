@@ -1,0 +1,192 @@
+﻿@page "/resultadoPreliminar"
+@rendermode InteractiveServer
+@using AppConcurso.Models
+@using AppConcurso.Controllers
+@inject InscricaoController inscricaoController
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 text-primary">
+            <i class="fas fa-chart-line me-2"></i>Resultado Preliminar
+        </h1>
+        <button class="btn btn-outline-primary" @onclick="AtualizarResultados" title="Atualizar resultados">
+            <i class="fas fa-sync-alt"></i> Atualizar
+        </button>
+    </div>
+
+    <div class="alert alert-info">
+        <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Critérios de Classificação</h5>
+        <p class="mb-0">A classificação preliminar é baseada na soma das notas de Conhecimentos Gerais (70 pontos) e Específicos (30 pontos).</p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-list-ol me-2"></i>Classificação Preliminar</h5>
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" class="form-control" @bind="filtro" placeholder="Filtrar por nome ou cargo" />
+                    <button class="btn btn-light" @onclick="Filtrar">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (resultados == null)
+            {
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando...</span>
+                    </div>
+                    <p class="mt-2">Carregando resultados...</p>
+                </div>
+            }
+            else if (!resultados.Any())
+            {
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Nenhum resultado disponível
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Posição</th>
+                                <th>Candidato</th>
+                                <th>Cargo</th>
+                                <th>Nota Geral <small class="text-muted">(70)</small></th>
+                                <th>Nota Específica <small class="text-muted">(30)</small></th>
+                                <th>Total <small class="text-muted">(100)</small></th>
+                                <th>% Aproveitamento</th>
+                                <th>Progresso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var ordenados = resultados
+                                .Where(r => r.NotaConhGerais.HasValue && r.NotaConhEspec.HasValue &&
+                                (string.IsNullOrEmpty(filtro) ||
+                                r.Candidato?.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase) == true ||
+                                r.Cargo?.NomeCargo.Contains(filtro, StringComparison.OrdinalIgnoreCase) == true))
+                                .OrderByDescending(r => r.Total)
+                                .ToList();
+                            }
+                            @for (int i = 0; i < ordenados.Count; i++)
+                            {
+                                var item = ordenados[i];
+                                var percentual = (item.Total ?? 0) / 100 * 100;
+                                var progressClass = percentual >= 70 ? "bg-success" : percentual >= 50 ? "bg-warning" : "bg-danger";
+
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                @if (i < 3)
+                                                {
+                                                    <i class="fas fa-trophy @(i == 0 ? "text-warning" : i == 1 ? "text-secondary" : "text-danger")"></i>
+                                                }
+                                            </div>
+                                            @item.Candidato?.Nome
+                                        </div>
+                                    </td>
+                                    <td>@item.Cargo?.NomeCargo</td>
+                                    <td>@item.NotaConhGerais?.ToString("N1")</td>
+                                    <td>@item.NotaConhEspec?.ToString("N1")</td>
+                                    <td><strong>@item.Total?.ToString("N1")</strong></td>
+                                    <td>@percentual.ToString("N1")%</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar @progressClass" role="progressbar"
+                                                 style="width: @percentual%"
+                                                 aria-valuenow="@percentual"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="100">
+                                                @if (percentual > 15)
+                                                {
+                                                    <span>@percentual.ToString("N0")%</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card border-primary">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary">1º Colocado</h5>
+                                    <p class="card-text fs-4 fw-bold">
+                                        @(ordenados.FirstOrDefault()?.Candidato?.Nome ?? "N/A")
+                                    </p>
+                                    <p class="text-muted">
+                                        Nota: @(ordenados.FirstOrDefault()?.Total?.ToString("N1") ?? "0")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-secondary">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-secondary">2º Colocado</h5>
+                                    <p class="card-text fs-4 fw-bold">
+                                        @(ordenados.Count > 1 ? ordenados[1]?.Candidato?.Nome : "N/A")
+                                    </p>
+                                    <p class="text-muted">
+                                        Nota: @(ordenados.Count > 1 ? ordenados[1]?.Total?.ToString("N1") : "0")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-danger">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-danger">3º Colocado</h5>
+                                    <p class="card-text fs-4 fw-bold">
+                                        @(ordenados.Count > 2 ? ordenados[2]?.Candidato?.Nome : "N/A")
+                                    </p>
+                                    <p class="text-muted">
+                                        Nota: @(ordenados.Count > 2 ? ordenados[2]?.Total?.ToString("N1") : "0")
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<Inscricao> resultados = new();
+    private string filtro = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarResultados();
+    }
+
+    private async Task CarregarResultados()
+    {
+        resultados = await inscricaoController.ObterInscricoesComNotas();
+        StateHasChanged();
+    }
+
+    private async Task AtualizarResultados()
+    {
+        await CarregarResultados();
+    }
+
+    private void Filtrar()
+    {
+        StateHasChanged();
+    }
+}

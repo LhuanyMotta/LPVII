@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0DADA8A9-8355-467C-A033-286EEE6C2F23}|AppConcurso\\AppConcurso.csproj|c:\\users\\lhuany\\desktop\\appconcurso\\appconcurso\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0DADA8A9-8355-467C-A033-286EEE6C2F23}|AppConcurso\\AppConcurso.csproj|solutionrelative:appconcurso\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DADA8A9-8355-467C-A033-286EEE6C2F23}|AppConcurso\\AppConcurso.csproj|c:\\users\\lhuany\\desktop\\appconcurso\\appconcurso\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DADA8A9-8355-467C-A033-286EEE6C2F23}|AppConcurso\\AppConcurso.csproj|solutionrelative:appconcurso\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DADA8A9-8355-467C-A033-286EEE6C2F23}|AppConcurso\\AppConcurso.csproj|c:\\users\\lhuany\\desktop\\appconcurso\\appconcurso\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DADA8A9-8355-467C-A033-286EEE6C2F23}|AppConcurso\\AppConcurso.csproj|solutionrelative:appconcurso\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\Program.cs",
+              "RelativeDocumentMoniker": "AppConcurso\\Program.cs",
+              "ToolTip": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\Program.cs",
+              "RelativeToolTip": "AppConcurso\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T20:06:37.798Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "AppConcurso\\Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "AppConcurso\\Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAAALgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-20T19:00:28.217Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "AppConcurso\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "AppConcurso\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-20T18:59:28.741Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
