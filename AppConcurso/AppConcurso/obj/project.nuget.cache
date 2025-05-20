@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jaM3+X/uYr0=",
+  "dgSpecHash": "92hK2B/Br54=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lhuany\\Desktop\\AppConcurso\\AppConcurso\\AppConcurso.csproj",
+  "projectFilePath": "C:\\Users\\Lhuany\\Desktop\\LPVII\\AppConcurso\\AppConcurso\\AppConcurso.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lhuany\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.13\\microsoft.entityframeworkcore.8.0.13.nupkg.sha512",
     "C:\\Users\\Lhuany\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.13\\microsoft.entityframeworkcore.abstractions.8.0.13.nupkg.sha512",
